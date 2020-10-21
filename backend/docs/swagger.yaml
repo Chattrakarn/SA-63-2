@@ -1,0 +1,825 @@
+basePath: /api/v1
+definitions:
+  ent.Drug:
+    properties:
+      DrugType:
+        description: DrugType holds the value of the "DrugType" field.
+        type: string
+      Information:
+        description: Information holds the value of the "Information" field.
+        type: string
+      Strength:
+        description: Strength holds the value of the "Strength" field.
+        type: integer
+      edges:
+        $ref: '#/definitions/ent.DrugEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the DrugQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.DrugEdges:
+    properties:
+      form:
+        $ref: '#/definitions/ent.Form'
+        description: Form holds the value of the form edge.
+        type: object
+      unit:
+        $ref: '#/definitions/ent.Unit'
+        description: Unit holds the value of the unit edge.
+        type: object
+      user:
+        $ref: '#/definitions/ent.User'
+        description: User holds the value of the user edge.
+        type: object
+      volume:
+        $ref: '#/definitions/ent.Volume'
+        description: Volume holds the value of the volume edge.
+        type: object
+    type: object
+  ent.Form:
+    properties:
+      FormType:
+        description: FormType holds the value of the "FormType" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.FormEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the FormQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.FormEdges:
+    properties:
+      drugs:
+        description: Drugs holds the value of the drugs edge.
+        items:
+          $ref: '#/definitions/ent.Drug'
+        type: array
+    type: object
+  ent.Unit:
+    properties:
+      UnitType:
+        description: UnitType holds the value of the "UnitType" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.UnitEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the UnitQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.UnitEdges:
+    properties:
+      drugs:
+        description: Drugs holds the value of the drugs edge.
+        items:
+          $ref: '#/definitions/ent.Drug'
+        type: array
+    type: object
+  ent.User:
+    properties:
+      Email:
+        description: Email holds the value of the "Email" field.
+        type: string
+      Password:
+        description: Password holds the value of the "Password" field.
+        type: string
+      Username:
+        description: Username holds the value of the "Username" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.UserEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the UserQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.UserEdges:
+    properties:
+      drugs:
+        description: Drugs holds the value of the drugs edge.
+        items:
+          $ref: '#/definitions/ent.Drug'
+        type: array
+    type: object
+  ent.Volume:
+    properties:
+      VolumeType:
+        description: VolumeType holds the value of the "VolumeType" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.VolumeEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the VolumeQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.VolumeEdges:
+    properties:
+      drugs:
+        description: Drugs holds the value of the drugs edge.
+        items:
+          $ref: '#/definitions/ent.Drug'
+        type: array
+    type: object
+  gin.H:
+    additionalProperties: true
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server for SUT SE 2563
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: SUT SA Example API
+  version: "1.0"
+paths:
+  /drugs:
+    get:
+      description: list drug entities
+      operationId: list-drug
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Drug'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List drug entities
+    post:
+      consumes:
+      - application/json
+      description: Create drug
+      operationId: create-drug
+      parameters:
+      - description: Drug entity
+        in: body
+        name: drug
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Drug'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Drug'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create drug
+  /drugs/{id}:
+    delete:
+      description: get drug by ID
+      operationId: delete-drug
+      parameters:
+      - description: Drug ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a drug entity by ID
+    get:
+      description: get drug by ID
+      operationId: get-drug
+      parameters:
+      - description: Drug ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Drug'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a drug entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update drug by ID
+      operationId: update-drug
+      parameters:
+      - description: Drug ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Drug entity
+        in: body
+        name: drug
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Drug'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Drug'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a drug entity by ID
+  /forms:
+    get:
+      description: list form entities
+      operationId: list-form
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Form'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List form entities
+    post:
+      consumes:
+      - application/json
+      description: Create form
+      operationId: create-form
+      parameters:
+      - description: form entity
+        in: body
+        name: form
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Form'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Form'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create form
+  /forms/{id}:
+    get:
+      description: get form by ID
+      operationId: get-form
+      parameters:
+      - description: form ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Form'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a form entity by ID
+  /units:
+    get:
+      description: list unit entities
+      operationId: list-unit
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Unit'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List unit entities
+    post:
+      consumes:
+      - application/json
+      description: Create unit
+      operationId: create-unit
+      parameters:
+      - description: Unit entity
+        in: body
+        name: unit
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Unit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create unit
+  /units/{id}:
+    delete:
+      description: get unit by ID
+      operationId: delete-unit
+      parameters:
+      - description: Unit ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a unit entity by ID
+    get:
+      description: get unit by ID
+      operationId: get-unit
+      parameters:
+      - description: Unit ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a unit entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update unit by ID
+      operationId: update-unit
+      parameters:
+      - description: Unit ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Unit entity
+        in: body
+        name: unit
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Unit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Unit'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a unit entity by ID
+  /users:
+    get:
+      description: list user entities
+      operationId: list-user
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List user entities
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      operationId: create-user
+      parameters:
+      - description: User entity
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/ent.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create user
+  /users/{id}:
+    get:
+      description: get user by ID
+      operationId: get-user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a user entity by ID
+  /volumes:
+    get:
+      description: list volume entities
+      operationId: list-volume
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Volume'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List volume entities
+    post:
+      consumes:
+      - application/json
+      description: Create volume
+      operationId: create-volume
+      parameters:
+      - description: Volume entity
+        in: body
+        name: volume
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Volume'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Volume'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create volume
+  /volumes/{id}:
+    delete:
+      description: get volume by ID
+      operationId: delete-volume
+      parameters:
+      - description: Volume ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/gin.H'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Delete a volume entity by ID
+    get:
+      description: get volume by ID
+      operationId: get-volume
+      parameters:
+      - description: Volume ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Volume'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a volume entity by ID
+    put:
+      consumes:
+      - application/json
+      description: update volume by ID
+      operationId: update-volume
+      parameters:
+      - description: Volume ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Volume entity
+        in: body
+        name: volume
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Volume'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Volume'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Update a volume entity by ID
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+  OAuth2AccessCode:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: accessCode
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Application:
+    flow: application
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Implicit:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: implicit
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    type: oauth2
+  OAuth2Password:
+    flow: password
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      read: ' Grants read access'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+swagger: "2.0"
