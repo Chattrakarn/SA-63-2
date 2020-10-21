@@ -56,10 +56,6 @@ export interface DeleteDrugRequest {
     id: number;
 }
 
-export interface DeleteFormRequest {
-    id: number;
-}
-
 export interface DeleteUnitRequest {
     id: number;
 }
@@ -116,11 +112,6 @@ export interface ListVolumeRequest {
 export interface UpdateDrugRequest {
     id: number;
     drug: EntDrug;
-}
-
-export interface UpdateFormRequest {
-    id: number;
-    form: EntForm;
 }
 
 export interface UpdateUnitRequest {
@@ -342,38 +333,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async deleteDrug(requestParameters: DeleteDrugRequest): Promise<object> {
         const response = await this.deleteDrugRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * get form by ID
-     * Delete a form entity by ID
-     */
-    async deleteFormRaw(requestParameters: DeleteFormRequest): Promise<runtime.ApiResponse<object>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteForm.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/forms/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'DELETE',
-            headers: headerParameters,
-            query: queryParameters,
-        });
-
-        return new runtime.JSONApiResponse<any>(response);
-    }
-
-    /**
-     * get form by ID
-     * Delete a form entity by ID
-     */
-    async deleteForm(requestParameters: DeleteFormRequest): Promise<object> {
-        const response = await this.deleteFormRaw(requestParameters);
         return await response.value();
     }
 
@@ -817,45 +776,6 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updateDrug(requestParameters: UpdateDrugRequest): Promise<EntDrug> {
         const response = await this.updateDrugRaw(requestParameters);
-        return await response.value();
-    }
-
-    /**
-     * update form by ID
-     * Update a form entity by ID
-     */
-    async updateFormRaw(requestParameters: UpdateFormRequest): Promise<runtime.ApiResponse<EntForm>> {
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateForm.');
-        }
-
-        if (requestParameters.form === null || requestParameters.form === undefined) {
-            throw new runtime.RequiredError('form','Required parameter requestParameters.form was null or undefined when calling updateForm.');
-        }
-
-        const queryParameters: runtime.HTTPQuery = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        const response = await this.request({
-            path: `/forms/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: EntFormToJSON(requestParameters.form),
-        });
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => EntFormFromJSON(jsonValue));
-    }
-
-    /**
-     * update form by ID
-     * Update a form entity by ID
-     */
-    async updateForm(requestParameters: UpdateFormRequest): Promise<EntForm> {
-        const response = await this.updateFormRaw(requestParameters);
         return await response.value();
     }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from 'react';
+import React, { useEffect, FC, useState } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -20,6 +20,7 @@ import { EntUser } from '../../api/models/EntUser';
 import { Content, Header, Page, pageTheme } from '@backstage/core';
 import SaveIcon from '@material-ui/icons/Save'; // icon save
 import Swal from 'sweetalert2';
+// import { EntDrug } from '../../api/models/EntDrug';
 
 // header css
 const HeaderCustom = {
@@ -59,7 +60,7 @@ interface drug {
   Volume: number;
   User: number
   Strength: number;
-  Name: string;
+  DrugType: string;
   Information: string;
 }
 
@@ -74,11 +75,8 @@ const Drug: FC<{}> = () => {
   const [volumes, setVolumes] = React.useState<EntVolume[]>([]);
 
   const Toast = Swal.mixin({
-    toast: true,
     position: 'center',
     showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
     didOpen: toast => {
       toast.addEventListener('mouseenter', Swal.stopTimer);
       toast.addEventListener('mouseleave', Swal.resumeTimer);
@@ -95,7 +93,7 @@ const Drug: FC<{}> = () => {
   };
 
   const handleChangeNumber = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>,) => {
+    event: React.ChangeEvent<{ name?: string; value: number }>,) => {
     const name = event.target.name as keyof typeof Drug;
     const { value } = event.target;
     setDrug({ ...drug, [name]: +value });
@@ -127,9 +125,6 @@ const Drug: FC<{}> = () => {
     getVolumes();
   }, []);
 
-  // function save() {
-  //   console.log(drug)
-  // }
   function clear() {
     setDrug({});
   }
@@ -140,7 +135,7 @@ const Drug: FC<{}> = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(drug),
-      
+
     };
     console.log(drug); // log ดูข้อมูล สามารถ Inspect ดูข้อมูลได้ F12 เลือก Tab Console
 
@@ -182,12 +177,12 @@ const Drug: FC<{}> = () => {
                   variant="outlined"
                 >
                   <TextField
-                    name="Name"
+                    name="DrugType"
                     label="ยา"
                     variant="outlined"
                     type="string"
                     size="medium"
-                    value={drug.Name || ''}
+                    value={drug.DrugType || '' }
                     onChange={handleChange}
                   />
                 </FormControl>
@@ -239,7 +234,6 @@ const Drug: FC<{}> = () => {
                   style={{ marginLeft: 20 }}
                 >
                   <TextField
-                    
                     name="Strength"
                     label="ความแรง"
                     variant="outlined"
@@ -306,13 +300,13 @@ const Drug: FC<{}> = () => {
                   variant="contained"
                   color="primary"
                   size="large"
-                  startIcon={<SaveIcon/>}
-                  onClick={save}
+                  startIcon={<SaveIcon />}
+                  onClick = {save}
                   style={{ marginLeft: 25.4 }}
                 >
                   บันทึก
               </Button>
-              <Button
+                <Button
                   variant="contained"
                   color="secondary"
                   size="large"

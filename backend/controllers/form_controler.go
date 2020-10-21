@@ -10,19 +10,19 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// FormController defines the struct for the Form controller
+// FormController defines the struct for the form controller
 type FormController struct {
 	client *ent.Client
 	router gin.IRouter
 }
 
-// CreateForm handles POST requests for adding Form entities
+// CreateForm handles POST requests for adding form entities
 // @Summary Create form
 // @Description Create form
 // @ID create-form
 // @Accept   json
 // @Produce  json
-// @Param form body ent.Form true "form entity"
+// @Param form body ent.Form true "Form entity"
 // @Success 200 {object} ent.Form
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H
@@ -55,7 +55,7 @@ func (ctl *FormController) CreateForm(c *gin.Context) {
 // @Description get form by ID
 // @ID get-form
 // @Produce  json
-// @Param id path int true "form ID"
+// @Param id path int true "Form ID"
 // @Success 200 {object} ent.Form
 // @Failure 400 {object} gin.H
 // @Failure 404 {object} gin.H

@@ -9,7 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { DefaultApi } from '../../api/apis';
- 
+import { EntDrug } from '../../api/models/EntDrug';
+
 const useStyles = makeStyles({
  table: {
    minWidth: 650,
@@ -19,20 +20,20 @@ const useStyles = makeStyles({
 export default function ComponentsTable() {
  const classes = useStyles();
  const api = new DefaultApi();
- const [users, setUsers] = useState(Array);
+ const [drugs, setDrugs] = useState<EntDrug[]>([]);
  const [loading, setLoading] = useState(true);
  
  useEffect(() => {
-   const getUsers = async () => {
-     const res = await api.listUser({ limit: 10, offset: 0 });
+   const getDrugs = async () => {
+     const res = await api.listDrug({ limit: 10, offset: 0 });
      setLoading(false);
-     setUsers(res);
+     setDrugs(res);
    };
-   getUsers();
+   getDrugs();
  }, [loading]);
  
- const deleteUsers = async (id: number) => {
-   const res = await api.deleteUser({ id: id });
+ const deleteDrugs = async (id: number) => {
+   const res = await api.deleteDrug({ id: id });
    setLoading(true);
  };
  
@@ -42,21 +43,31 @@ export default function ComponentsTable() {
        <TableHead>
          <TableRow>
            <TableCell align="center">No.</TableCell>
-           <TableCell align="center">Name</TableCell>
-           <TableCell align="center">Age</TableCell>
+           <TableCell align="center">DrugType</TableCell>
+           <TableCell align="center">UnitType</TableCell>
+           <TableCell align="center">Form</TableCell>
+           <TableCell align="center">Strength</TableCell>
+           <TableCell align="center">Volume</TableCell>
+           <TableCell align="center">Information</TableCell>
+           <TableCell align="center">Username</TableCell>
            <TableCell align="center">Manage</TableCell>
          </TableRow>
        </TableHead>
        <TableBody>
-         {users.map(item => (
+         {drugs.map(item => (
            <TableRow key={item.id}>
              <TableCell align="center">{item.id}</TableCell>
-             <TableCell align="center">{item.name}</TableCell>
-             <TableCell align="center">{item.age}</TableCell>
+             <TableCell align="center">{item.drugType}</TableCell>
+             <TableCell align="center">{item.edges?.unit?.unitType}</TableCell>
+             <TableCell align="center">{item.edges?.form?.formType}</TableCell>
+             <TableCell align="center">{item.strength}</TableCell>
+             <TableCell align="center">{item.edges?.volume?.volumeType}</TableCell>
+             <TableCell align="center">{item.information}</TableCell>
+             <TableCell align="center">{item.edges?.user?.username}</TableCell>
              <TableCell align="center">
                <Button
                  onClick={() => {
-                   deleteUsers(item.id);
+                  deleteDrugs(item.id);
                  }}
                  style={{ marginLeft: 10 }}
                  variant="contained"

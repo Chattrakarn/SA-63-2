@@ -317,7 +317,7 @@ var doc = `{
                 "operationId": "create-form",
                 "parameters": [
                     {
-                        "description": "form entity",
+                        "description": "Form entity",
                         "name": "form",
                         "in": "body",
                         "required": true,
@@ -359,7 +359,7 @@ var doc = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "form ID",
+                        "description": "Form ID",
                         "name": "id",
                         "in": "path",
                         "required": true

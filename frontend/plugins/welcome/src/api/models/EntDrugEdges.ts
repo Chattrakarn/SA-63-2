@@ -74,10 +74,10 @@ export function EntDrugEdgesFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'form': !exists(json, 'form') ? undefined : EntFormFromJSON(json['form']),
-        'unit': !exists(json, 'unit') ? undefined : EntUnitFromJSON(json['unit']),
-        'user': !exists(json, 'user') ? undefined : EntUserFromJSON(json['user']),
-        'volume': !exists(json, 'volume') ? undefined : EntVolumeFromJSON(json['volume']),
+        'form': !exists(json, 'Form') ? undefined : EntFormFromJSON(json['Form']),
+        'unit': !exists(json, 'Unit') ? undefined : EntUnitFromJSON(json['Unit']),
+        'user': !exists(json, 'User') ? undefined : EntUserFromJSON(json['User']),
+        'volume': !exists(json, 'Volume') ? undefined : EntVolumeFromJSON(json['Volume']),
     };
 }
 

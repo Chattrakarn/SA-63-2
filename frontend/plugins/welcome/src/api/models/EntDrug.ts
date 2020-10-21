@@ -39,6 +39,12 @@ export interface EntDrug {
      */
     information?: string;
     /**
+     * Strength holds the value of the "Strength" field.
+     * @type {number}
+     * @memberof EntDrug
+     */
+    strength?: number;
+    /**
      * 
      * @type {EntDrugEdges}
      * @memberof EntDrug
@@ -50,12 +56,6 @@ export interface EntDrug {
      * @memberof EntDrug
      */
     id?: number;
-    /**
-     * Strength holds the value of the "strength" field.
-     * @type {number}
-     * @memberof EntDrug
-     */
-    strength?: number;
 }
 
 export function EntDrugFromJSON(json: any): EntDrug {
@@ -70,9 +70,9 @@ export function EntDrugFromJSONTyped(json: any, ignoreDiscriminator: boolean): E
         
         'drugType': !exists(json, 'DrugType') ? undefined : json['DrugType'],
         'information': !exists(json, 'Information') ? undefined : json['Information'],
+        'strength': !exists(json, 'Strength') ? undefined : json['Strength'],
         'edges': !exists(json, 'edges') ? undefined : EntDrugEdgesFromJSON(json['edges']),
         'id': !exists(json, 'id') ? undefined : json['id'],
-        'strength': !exists(json, 'strength') ? undefined : json['strength'],
     };
 }
 
@@ -87,9 +87,9 @@ export function EntDrugToJSON(value?: EntDrug | null): any {
         
         'DrugType': value.drugType,
         'Information': value.information,
+        'Strength': value.strength,
         'edges': EntDrugEdgesToJSON(value.edges),
         'id': value.id,
-        'strength': value.strength,
     };
 }
 

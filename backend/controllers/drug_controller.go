@@ -27,7 +27,8 @@ type Drug struct {
 	Volume   int
 	Strength   int
 	Information   string	
-	DrugType string
+	DrugType string 
+	
 }
 
 // CreateDrug handles POST requests for adding drug entities
@@ -101,13 +102,13 @@ func (ctl *DrugController) CreateDrug(c *gin.Context) {
 
 	dg, err := ctl.client.Drug.
 		Create().
+		SetDrugType(obj.DrugType).
+		SetStrength(obj.Strength).
+		SetInformation(obj.Information).
 		SetUnit(un).
 		SetUser(u).
 		SetForm(f).
 		SetVolume(v).
-		SetDrugType(obj.DrugType).
-		SetStrength(obj.Strength).
-		SetInformation(obj.Information).
 		Save(context.Background())
 		
 	if err != nil {
@@ -189,12 +190,12 @@ func (ctl *DrugController) ListDrug(c *gin.Context) {
 
 	drugs, err := ctl.client.Drug.
 		Query().
-		Limit(limit).
-		Offset(offset).
 		WithUser().
 		WithForm().
 		WithVolume().
 		WithUnit().
+		Limit(limit).
+		Offset(offset).
 		All(context.Background())
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
@@ -296,7 +297,7 @@ func (ctl *DrugController) register() {
 	// CRUD
 	drugs.POST("", ctl.CreateDrug)
 	drugs.GET(":id", ctl.GetDrug)
-	// drugs.PUT(":id", ctl.UpdateDrug)
-	// drugs.DELETE(":id", ctl.DeleteDrug)
+	drugs.PUT(":id", ctl.UpdateDrug)
+	drugs.DELETE(":id", ctl.DeleteDrug)
 }
 

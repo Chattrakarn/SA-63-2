@@ -343,7 +343,7 @@ paths:
       description: Create form
       operationId: create-form
       parameters:
-      - description: form entity
+      - description: Form entity
         in: body
         name: form
         required: true
@@ -370,7 +370,7 @@ paths:
       description: get form by ID
       operationId: get-form
       parameters:
-      - description: form ID
+      - description: Form ID
         in: path
         name: id
         required: true
