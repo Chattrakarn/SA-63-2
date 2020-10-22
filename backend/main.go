@@ -164,10 +164,12 @@ func main() {
 	// Set Unit
 	units := Units{
 		Unit: []Unit{
-			Unit{"tablet"},
-			Unit{"bottle"},
-			Unit{"pack"},
-			
+			// Unit{"tablet"},
+			// Unit{"bottle"},
+			// Unit{"pack"},
+			Unit{"เม็ด"},
+			Unit{"ขวด"},
+			Unit{"ซอง"},
 		},
 	}
 
@@ -181,8 +183,10 @@ func main() {
 	// Set Volume
 	volumes := Volumes{
 		Volume: []Volume{
-			Volume{"mg"},
-			Volume{"mcg"},
+			// Volume{"mg"},
+			// Volume{"mcg"},
+			Volume{"มิลลิกรัม"},
+			Volume{"ไมโครกรัม"},
 		},
 	}
 
@@ -196,10 +200,14 @@ func main() {
 	// Set Form
 	forms := Forms{ 
 		Form: []Form{
-			Form{"capsul"},
-			Form{"tablet"},
-			Form{"powder"},
-			Form{"liquid"},
+			// Form{"capsul"},
+			// Form{"tablet"},
+			// Form{"powder"},
+			// Form{"liquid"},
+			Form{"แคปซูล"},
+			Form{"เม็ด"},
+			Form{"ผง"},
+			Form{"น้ำ"},
 		},
 	}
 

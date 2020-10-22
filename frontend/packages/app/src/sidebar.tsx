@@ -3,7 +3,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
 import YouTube from '@material-ui/icons/YouTube';
 import SignOut from '@material-ui/icons/Settings';
-
+import Save from '@material-ui/icons/Save';
 
 import {
   Sidebar,
@@ -19,19 +19,20 @@ export const AppSidebar = () => (
   <Sidebar>
     <SidebarDivider />
     {/* Global nav, not org-specific */}
-    <SidebarItem icon={HomeIcon} to="" text="Home" />
+    <SidebarItem icon={HomeIcon} to="" text="หน้าหลัก" />
     {/* <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
     <SidebarItem icon={CreateComponentIcon} to="welcome" text="Welcome" /> */}
     <SidebarItem
-      icon={YouTube}
-      to="playlist_video"
-      text="Playlist Video"
+      icon={Save}
+      to="Table"
+      text="ข้อมูลยา"
+      
     />
-    <SidebarItem
+    {/* <SidebarItem
       icon={CreateComponentIcon}
       to="watch_video"
       text="Watch Video"
-    />
+    /> */}
 
     {/* End global nav */}
     <SidebarDivider />

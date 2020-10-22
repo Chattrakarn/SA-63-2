@@ -42,14 +42,14 @@ export default function ComponentsTable() {
      <Table className={classes.table} aria-label="simple table">
        <TableHead>
          <TableRow>
-           <TableCell align="center">No.</TableCell>
-           <TableCell align="center">DrugType</TableCell>
-           <TableCell align="center">UnitType</TableCell>
-           <TableCell align="center">Form</TableCell>
-           <TableCell align="center">Strength</TableCell>
-           <TableCell align="center">Volume</TableCell>
-           <TableCell align="center">Information</TableCell>
-           <TableCell align="center">Username</TableCell>
+           <TableCell align="center">ลำดับ</TableCell>
+           <TableCell align="center">ชื่อยา</TableCell> 
+           <TableCell align="center">หน่วยนับ</TableCell>
+           <TableCell align="center">รูปแบบยา</TableCell>
+           <TableCell align="center">ความแรง</TableCell>
+           <TableCell align="center">หน่วย</TableCell>
+           <TableCell align="center">ข้อมูลยา</TableCell>
+           <TableCell align="center">ผู้ใช้งาน</TableCell>
            <TableCell align="center">Manage</TableCell>
          </TableRow>
        </TableHead>
