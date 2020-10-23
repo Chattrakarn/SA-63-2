@@ -4,7 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-import { EntUser, EntUserFromJSON } from '../../api/models/EntUser';
+import { EntUser } from '../../api/models/EntUser';
+import Swal from 'sweetalert2';
 import {
   // Content,
   Header,
@@ -12,8 +13,8 @@ import {
   pageTheme,
   // ContentHeader,
 } from '@backstage/core';
-import { DefaultApi } from '../../api';
-import User from '../Users';
+// import { DefaultApi } from '../../api';
+// import Swal from 'sweetalert2'; // alert
 
 const HeaderCustom = {
   minHeight: '120px',
@@ -35,21 +36,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface State {
-  email: string;
-  password: string;
+type State = {
+  email: string
+  password: string
   isButtonDisabled: boolean
   helperText: string
   isError: boolean
-}
+};
 
 const initialState: State = {
   email: '',
   password: '',
   isButtonDisabled: true,
   helperText: '',
-  isError: false,
-}
+  isError: false
+};
 
 type Action = { type: 'setEmail', payload: string }
   | { type: 'setPassword', payload: string }
@@ -95,14 +96,10 @@ const reducer = (state: State, action: Action): State => {
   }
 }
 
-
 const Login = () => {
   const classes = useStyles();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [user, ] = React.useState<EntUser[]>([]);
-  const [password, getPassword] = React.useState<EntUser[]>([]);
-  
-  
+
   useEffect(() => {
     if (state.email.trim() && state.password.trim()) {
       dispatch({
@@ -118,8 +115,9 @@ const Login = () => {
   }, [state.email, state.password]);
 
   const handleLogin = () => {
-    if ((state.email === 'wannee@gmail.com' && state.password === '12345') ||
-        (state.email === 'raweewan@gmail.com' && state.password === '12345')) {
+    if ((state.email == "somchai@gmail.com" && state.password == "12345") ||
+    (state.email == "wanee@gmail.com" && state.password == "123456")
+  ) {
       dispatch({
         type: 'loginSuccess',
         payload: 'Login Successfully'
@@ -131,7 +129,6 @@ const Login = () => {
       });
     }
   };
- 
 
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (event.keyCode === 13 || event.which === 13) {
@@ -139,7 +136,7 @@ const Login = () => {
     }
   };
 
-  const handleEmailChange: React.ChangeEventHandler<HTMLInputElement> =
+  const handleUsernameChange: React.ChangeEventHandler<HTMLInputElement> =
     (event) => {
       dispatch({
         type: 'setEmail',
@@ -154,67 +151,64 @@ const Login = () => {
         payload: event.target.value
       });
     }
-  // return (
-  //   <div className={classes.paper}>
-  //     <Page theme={pageTheme.website}>
-  //       <Header style={HeaderCustom} title={`Medicine Room System`}
-  //         subtitle="กรุณาบันทึกข้อมูลก่อนเข้าสู่ระบบ">
-  //       </Header>
-  //       <form className={classes.submit} noValidate>
-  //         <TextField
-  //           variant="outlined"
-  //           margin="normal"
-  //           required
-  //           fullWidth
-  //           id="email"
-  //           label="Email Address"
-  //           name="email"
-  //           autoComplete="email"
-  //           autoFocus
-  //           onChange={handleEmailChange}
-  //           onKeyPress={handleKeyPress}
+  return (
+    <div className={classes.paper}>
+      <Page theme={pageTheme.website}>
+        <Header style={HeaderCustom} title={`Medicine Room System`}
+          subtitle="กรุณาบันทึกข้อมูลก่อนเข้าสู่ระบบ">
+        </Header>
+        <form className={classes.submit} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="email"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={handleUsernameChange}
+            onKeyPress={handleKeyPress}
 
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            helperText={state.helperText}
+            onChange={handlePasswordChange}
+            onKeyPress={handleKeyPress}
+          />
+          <Button
 
-  //         />
-  //         <TextField
-  //           variant="outlined"
-  //           margin="normal"
-  //           required
-  //           fullWidth
-  //           name="password"
-  //           label="Password"
-  //           type="password"
-  //           id="password"
-  //           autoComplete="current-password"
-  //           helperText={state.helperText}
-  //           onChange={handlePasswordChange}
-  //           onKeyPress={handleKeyPress}
-  //         />
-  //         <Button
-
-  //           type="submit"
-  //           fullWidth
-  //           variant="contained"
-  //           color="primary"
-  //           className={classes.submit}
-  //           onClick={handleLogin}
-  //           disabled={state.isButtonDisabled}
-  //           href="/WelcomePage"
-  //           >
-              
-  //           Sign In
-            
-  //         </Button>
-  //         <Grid container>
-  //           <Grid item>
-  //             <Link href="/WelcomePage" variant="body2">
-  //               {"Don't have an account? Sign Up"}
-  //             </Link>
-  //           </Grid>
-  //         </Grid>
-  //       </form>
-  //     </Page>
-  //   </div>
-  // );
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleLogin}
+            disabled={state.isButtonDisabled}
+            href="/Welcomepage"   
+            >
+            Sign In
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link href="/user" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </Page>
+    </div>
+  );
 };
 export default Login;
